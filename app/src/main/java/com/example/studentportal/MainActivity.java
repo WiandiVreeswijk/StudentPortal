@@ -25,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private PortalAdapter mPortalAdapter;
     private GestureDetector mGestureDetector;
     private int mModifyPosition;
+
+    public static final String ADD_PORTAL = "NewPortal";
+    public static final int NewPortalCode = 4321;
+
+    public static final String VIEW_PORTAL = "ViewPortal";
+    public static final int ViewPortalCode = 3421;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,9 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         //mRecyclerView.addOnItemTouchListener(this);
-
+        updateUI();
     }
 
     @Override
@@ -78,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void updateUI() {
+        if (mPortalAdapter == null) {
+            mPortalAdapter = new PortalAdapter(mPortals);
+            mRecyclerView.setAdapter(mPortalAdapter);
+        } else {
+            mPortalAdapter.notifyDataSetChanged();
+        }
     }
 
 }
