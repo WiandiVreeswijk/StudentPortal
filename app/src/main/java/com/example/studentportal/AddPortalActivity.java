@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -24,7 +25,7 @@ public class AddPortalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_portal);
 
         mUrl = findViewById(R.id.urlEditText);
-        mTitlePortal = findViewById(R.id.portalText);
+        mTitlePortal = findViewById(R.id.TitelEditText);
         mAddPortalButton = findViewById(R.id.addPortalButton);
 
         mAddPortalButton.setOnClickListener(new View.OnClickListener() {
@@ -39,10 +40,11 @@ public class AddPortalActivity extends AppCompatActivity {
                     intent.putExtra(MainActivity.ADD_PORTAL,portal);
                     setResult(Activity.RESULT_OK,intent);
                     finish();
+                }else{
+                    Snackbar.make(v,"fill in all the fields",Snackbar.LENGTH_SHORT);
                 }
             }
 
         });
     }
-
 }

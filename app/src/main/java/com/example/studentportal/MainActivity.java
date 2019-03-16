@@ -90,22 +90,25 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
             mPortalAdapter.notifyDataSetChanged();
         }
     }
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NewPortalCode){
             if(resultCode == RESULT_OK){
-                Portal newPortal = data.getParcelableExtra(MainActivity.ADD_PORTAL);
-                mPortals.add(newPortal);
+                Portal portal = data.getParcelableExtra(MainActivity.ADD_PORTAL);
+                mPortals.add(portal);
                 updateUI();
             }
         }
     }
-    public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-        View child = rv.findChildViewUnder(e.getX(), e.getY());
+
+    @Override
+    public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+        View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
 
         if(child != null) {
-            int position = rv.getChildAdapterPosition(child);
+            int position = recyclerView.getChildAdapterPosition(child);
 
-            if (mGestureDetector.onTouchEvent(e)) {
+            if (mGestureDetector.onTouchEvent(motionEvent)) {
                 Intent intent = new Intent(MainActivity.this, WebviewActivity.class);
                 intent.putExtra(VIEW_PORTAL, mPortals.get(position));
                 startActivityForResult(intent, ViewPortalCode);
